@@ -1,0 +1,11 @@
+<p>Daily
+  <% @daily_chores.each do |chore| %>
+<p><%= chore.name %> <a href="/chores/<%=chore.id%>/edit">Edit</a>, <a href="/chores/<%=chore.id%>/delete">Delete</a>
+<% end %>
+
+<br>
+
+<p>BiWeekly
+  <% @daily_chores.each do |chore| %>
+<p><%= chore.name %> <a href="/chores/<%=chore.id%>/edit">Edit</a>, <a href="/chores/<%=chore.id%>/delete">Delete</a>
+<% end %>
