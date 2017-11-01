@@ -17,9 +17,13 @@
 <br>------------------------------------
   <% @monthly_chores.each do |chore| %>
     <br><%= chore.name %>
-    <br><form action="/chores/<%= chore.id %>/complete" method="post">
+    <% if chore.status == "not done" %>
+    <form action="/chores/<%= chore.id %>/complete" method="post">
       <input type="submit" value="Complete Task">
     </form>
+    <% else %>
+      completed
+    <% end %>
   <% end %>
 
 

@@ -37,6 +37,7 @@ class ChoresController < ApplicationController
     @user = current_user
     if params[:chore] != ""
     @chore = Chore.create(name: params[:name], frequency: params[:frequency])
+    @chore.status = "not done"
     @user.chores << @chore
     @user.save
   else
@@ -81,7 +82,7 @@ class ChoresController < ApplicationController
      end
   end
 
-  get "/chores/:id/complete" do
+  post "/chores/:id/complete" do
     @chore = Chore.find_by_id(params[:id])
    if logged_in? && @chore.user_id == current_user.id
      @chore.status = "done"
