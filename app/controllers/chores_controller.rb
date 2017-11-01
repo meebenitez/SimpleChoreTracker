@@ -22,8 +22,8 @@ class ChoresController < ApplicationController
         @monthly_chores << chore
       end
     end
-        
-        
+
+
     erb :"/chores/index.html"
   end
 
@@ -79,6 +79,16 @@ class ChoresController < ApplicationController
        @chore.update(name: params[:name])
        redirect "/chores"
      end
+  end
+
+  get "/chores/:id/complete" do
+    @chore = Chore.find_by_id(params[:id])
+   if logged_in? && @chore.user_id == current_user.id
+     @chore.status = "done"
+     redirect "/chores"
+   else
+     redirect '/login'
+   end
   end
 
   # DELETE: /chores/5/delete

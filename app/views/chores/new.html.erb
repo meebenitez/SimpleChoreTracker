@@ -2,6 +2,10 @@
 <p>Let's add some new chores.
 <form action="/chores" method="POST">
   <p><input type="text" name="name" placeholder="Chore:">
-  <p><input type="text" name="frequency" placeholder="Frequency:">
-  <p><input type="submit" name="submit" value="submit">
+    <p>Select Frequency:
+        <label><input type="radio" name="frequency" value="daily">Daily</label>
+        <label><input type="radio" name="frequency" value="biweekly">Twice a week</label>
+        <label><input type="radio" name="frequency" value="weekly">Weekly</label>
+        <label><input type="radio" name="frequency" value="monthly">Monthly</label>
+   <p><input type="submit" name="submit" value="submit">
 </form>

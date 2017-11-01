@@ -1,4 +1,33 @@
-<% @chores.each do |chore| %>
-<p><%= chore.name %>
-<% end %>
+<p>Daily
+<br>------------------------------------
+  <% @daily_chores.each do |chore| %>
+    <br><%= chore.name %>
+  <% end %>
+<p>Biweekly
+<br>------------------------------------
+  <% @biweekly_chores.each do |chore| %>
+    <br><%= chore.name %>
+  <% end %>
+<p>Weekly
+<br>------------------------------------
+  <% @weekly_chores.each do |chore| %>
+    <br><%= chore.name %>
+  <% end %>
+<p>Monthly
+<br>------------------------------------
+  <% @monthly_chores.each do |chore| %>
+    <br><%= chore.name %>
+    <br><form action="/chores/<%= chore.id %>/complete" method="post">
+      <input type="submit" value="Complete Task">
+    </form>
+  <% end %>
+
+
+
+
+
+<p>
+<p>
+
+
 <p><a href="/chores/edit">Edit your chores list</a>
