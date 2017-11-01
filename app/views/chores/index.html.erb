@@ -1,29 +1,34 @@
 <p>Daily
 <br>------------------------------------
   <% @daily_chores.each do |chore| %>
-    <br><%= chore.name %>
-  <% end %>
+      <br><%= chore.name %>
+      <form action="/chores/<%= chore.id %>/complete" method="post">
+        <input type="submit" value="Complete Task">
+      </form>
+    <% end %>
 <p>Biweekly
 <br>------------------------------------
   <% @biweekly_chores.each do |chore| %>
-    <br><%= chore.name %>
+      <br><%= chore.name %>
+      <form action="/chores/<%= chore.id %>/complete" method="post">
+        <input type="submit" value="Complete Task">
+      </form>
   <% end %>
 <p>Weekly
 <br>------------------------------------
   <% @weekly_chores.each do |chore| %>
     <br><%= chore.name %>
+    <form action="/chores/<%= chore.id %>/complete" method="post">
+      <input type="submit" value="Complete Task">
+    </form>
   <% end %>
 <p>Monthly
 <br>------------------------------------
   <% @monthly_chores.each do |chore| %>
     <br><%= chore.name %>
-    <% if chore.status == "not done" %>
     <form action="/chores/<%= chore.id %>/complete" method="post">
       <input type="submit" value="Complete Task">
     </form>
-    <% else %>
-      completed
-    <% end %>
   <% end %>
 
 

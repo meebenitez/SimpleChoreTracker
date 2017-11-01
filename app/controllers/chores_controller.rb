@@ -10,16 +10,20 @@ class ChoresController < ApplicationController
     @monthly_chores = []
     #add logic for daily, weekly, monthly
     @chores = @user.chores
+    now = Time.now()
 
     @chores.each do |chore|
-      if chore == "daily"
-        @daily_chores << chore
-      elsif chore == "weekly"
-        @weekly_chores << chore
-      elsif chore == "biweekly"
-        @biweekly_chores << chore
-      else
-        @monthly_chores << chore
+      if now > chore.reset_time
+        chore.status = "not done"
+        if chore.frequency == "daily" && chore.status == "not done"
+          @daily_chores << chore
+        elsif chore.frequency == "weekly" && chore.status == "not done"
+          @weekly_chores << chore
+        elsif chore.frequency == "biweekly" && chore.status == "not done"
+          @biweekly_chores << chore
+        else
+          @monthly_chores << chore
+        end
       end
     end
 
@@ -38,6 +42,7 @@ class ChoresController < ApplicationController
     if params[:chore] != ""
     @chore = Chore.create(name: params[:name], frequency: params[:frequency])
     @chore.status = "not done"
+    @chore.reset_time = Time.now()
     @user.chores << @chore
     @user.save
   else
@@ -83,9 +88,14 @@ class ChoresController < ApplicationController
   end
 
   post "/chores/:id/complete" do
+    now = Time.now()
+    subract_time = 0
     @chore = Chore.find_by_id(params[:id])
    if logged_in? && @chore.user_id == current_user.id
      @chore.status = "done"
+     subtract_time = (now.strftime('%H').to_i * 3600) + (now.strftime('%M').to_i * 60) + (now.strftime('%S').to_i)
+     @chore.reset_time = now + (86400 - subtract_time)
+     @chore.save
      redirect "/chores"
    else
      redirect '/login'

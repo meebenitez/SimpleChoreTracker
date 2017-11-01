@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20171031180100) do
     t.string   "name"
     t.string   "frequency"
     t.string   "status"
-    t.datetime "reset_day"
+    t.datetime "reset_time"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
