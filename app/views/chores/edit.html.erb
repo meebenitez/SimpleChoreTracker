@@ -1,1 +1,14 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<h1>Edit Chore</h1>
+<form method="post" action="/chores/<%=@chore.id%>">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+
+
+<p>Chore<input type="text" name="name" value="<%=@chore.name%>">
+<label><input type="radio" name="frequency" value="daily" <%='checked' if @chore.frequency == "daily" %>>Daily</label>
+<label><input type="radio" name="frequency" value="biweekly" <%='checked' if @chore.frequency == "biweekly"%>>Twice a week</label>
+<label><input type="radio" name="frequency" value="weekly" <%='checked' if @chore.frequency == "weekly"%>>Weekly</label>
+<label><input type="radio" name="frequency" value="monthly" <%='checked' if @chore.frequency == "monthly"%>>Monthly</label>
+<input type="submit" value="submit" name="submit">
+
+
+</form>
