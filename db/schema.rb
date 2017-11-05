@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20171031180100) do
     t.string   "status"
     t.datetime "reset_time"
     t.integer  "user_id"
+    t.boolean  "past_due"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

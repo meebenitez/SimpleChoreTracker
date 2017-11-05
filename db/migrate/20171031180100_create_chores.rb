@@ -6,6 +6,7 @@ class CreateChores < ActiveRecord::Migration
       t.string :status
       t.datetime :reset_time
       t.integer :user_id
+      t.boolean :past_due
 
       t.timestamps null: false
     end

@@ -4,6 +4,7 @@ class ChoresController < ApplicationController
   # GET: /chores
   get "/chores" do
     if logged_in?
+      now = Time.now()
       @user = current_user
       @daily_chores = []
       @weekly_chores = []
@@ -12,19 +13,31 @@ class ChoresController < ApplicationController
       #add logic for daily, weekly, monthly
       @chores = @user.chores
       now = Time.now()
-
       @chores.each do |chore|
-        if now > chore.reset_time
-          chore.status = "not done"
-          if chore.frequency == "daily" && chore.status == "not done"
-            @daily_chores << chore
-          elsif chore.frequency == "weekly" && chore.status == "not done"
-            @weekly_chores << chore
-          elsif chore.frequency == "biweekly" && chore.status == "not done"
-            @biweekly_chores << chore
-          else
-            @monthly_chores << chore
+        if chore.frequency == "daily" && chore.status == "not done"
+          if now > chore.reset_time
+            chore.past_due = true
           end
+          @daily_chores << chore
+          @daily_chores_count = slice_count(@daily_chores.count)
+        elsif chore.frequency == "weekly" && chore.status == "not done"
+          if now > chore.reset_time
+            chore.past_due = true
+          end
+          @weekly_chores << chore
+          @weekly_chores_count = slice_count(@weekly_chores.count)
+        elsif chore.frequency == "biweekly" && chore.status == "not done"
+          if now > chore.reset_time
+            chore.past_due = true
+          end
+          @biweekly_chores << chore
+          @biweekly_chores_count = slice_count(@biweekly_chores.count)
+        else
+          if now > chore.reset_time
+            chore.past_due = true
+          end
+          @monthly_chores << chore
+          @monthly_chores_count = slice_count(@monthly_chores.count)
         end
       end
       erb :"/chores/index.html"
@@ -39,20 +52,30 @@ class ChoresController < ApplicationController
     erb :"/chores/new.html"
   end
 
-  # POST: /chores
-  post "/chores" do
-    @user = current_user
-    if params[:chore] != ""
-    @chore = Chore.create(name: params[:name], frequency: params[:frequency])
-    @chore.status = "not done"
-    @chore.reset_time = Time.now()
-    @user.chores << @chore
-    @user.save
-  else
-    redirect '/chores/new'
-  end
+  get "/chores/seed" do
+    starter_chores
     redirect '/chores'
   end
+
+  # POST: /chores
+  post "/chores" do
+    now = Time.now()
+    @user = current_user
+    if params[:chore] != ""
+      @chore = Chore.create(name: params[:name], frequency: params[:frequency])
+      @chore.status = "not done"
+      #set all reset times to previous midnight regardless of frequency
+      subtract_time = (now.strftime('%H').to_i * 3600) + (now.strftime('%M').to_i * 60) + (now.strftime('%S').to_i)
+      #@chore.reset_time = now - subtract_time
+      @chore.reset_time = now + 60
+      @chore.past_due = false
+      @user.chores << @chore
+      @user.save
+    else
+      redirect '/chores/new'
+    end
+      redirect '/chores'
+    end
 
   get "/chores/edit" do
     if logged_in?
@@ -67,15 +90,18 @@ class ChoresController < ApplicationController
       @chores.each do |chore|
         if chore.frequency == "daily"
           @daily_chores << chore
+          @daily_chores_count = slice_count(@daily_chores.count)
         elsif chore.frequency == "weekly"
           @weekly_chores << chore
+          @weekly_chores_count = slice_count(@weekly_chores.count)
         elsif chore.frequency == "biweekly"
           @biweekly_chores << chore
+          @biweekly_chores_count = slice_count(@biweekly_chores.count)
         else
           @monthly_chores << chore
+          @monthly_chores_count = slice_count(@monthly_chores.count)
         end
       end
-
       erb :"chores/list_edit.html"
     else
       redirect '/login'
@@ -122,14 +148,12 @@ class ChoresController < ApplicationController
 
   post "/chores/:id/complete" do
     now = Time.now()
-    subract_time = 0
     @chore = Chore.find_by_id(params[:id])
    if logged_in? && @chore.user_id == current_user.id
      @chore.status = "done"
-     subtract_time = (now.strftime('%H').to_i * 3600) + (now.strftime('%M').to_i * 60) + (now.strftime('%S').to_i)
-     @chore.reset_time = now + (86400 - subtract_time)
+     @chore.reset_time = set_reset(now, @chore.frequency)
      @chore.save
-     redirect "/chores/edit"
+     redirect "/chores"
    else
      redirect '/login'
    end
