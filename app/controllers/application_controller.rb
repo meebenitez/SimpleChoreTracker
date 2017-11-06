@@ -22,10 +22,6 @@ class ApplicationController < Sinatra::Base
      !!session[:user_id]
    end
 
-   def test_instance
-     @flag = "test"
-   end
-
    def current_user
      User.find(session[:user_id])
    end

@@ -32,7 +32,7 @@
 </head>
 <body>
 <center><div class="row">
-  <img src="/images/sct_logo1.png" class="img-responsive main-image">
+  <a href="/"><img src="/images/sct_logo1.png" class="img-responsive main-image"></a>
 </div>
 <br>
 </center>
@@ -45,7 +45,7 @@
         <p><b>"<%= @chore.name %>"</b>
           <input id="hidden" type="hidden" name="_method" value="patch">
           <p>Edit Chore: <input type="text" name="name" value="<%=@chore.name%>" style="width: 300px;" maxlength="50"> <small>(50 char max)</small>
-          <p>Frequency: 
+          <p>Frequency:
             <label><input type="radio" name="frequency" value="daily" <%='checked' if @chore.frequency == "daily" %>> Daily</label>
             <label><input type="radio" name="frequency" value="biweekly" <%='checked' if @chore.frequency == "biweekly"%>> Twice a week</label>
             <label><input type="radio" name="frequency" value="weekly" <%='checked' if @chore.frequency == "weekly"%>> Weekly</label>
