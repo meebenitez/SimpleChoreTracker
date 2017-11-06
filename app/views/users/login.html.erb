@@ -1,6 +1,54 @@
-<h3>Login</h3>
-<form action="/users/login" method="POST">
-  <p><input type="text" name="email" placeholder="Email:">
-  <p><input type="password" name="password" placeholder="Password:">
-  <p><input type="submit" name="submit" value="submit">
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    border-radius: 25px;
+    margin-left: 25%;
+    margin-right: auto;
+    background-color: #EFEFEF;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+}
+
+
+</style>
+</head>
+<body>
+<center><div class="row">
+  <img src="../images/sct_logo1.png" class="img-responsive main-image">
+</div>
+<br>
+</center>
+
+<div class="row">
+  <div class="column">
+    <center><h3>Log in!</h3>
+    <p><span style="color:#FF0000"><b><%= @message %></b></span>
+    <form action="/login" method="POST">
+      <p>Email:<br><input type="text" name="email" placeholder="Email:">
+      <p>Password: <br><input type="password" name="password" placeholder="Password:">
+      <p><input type="submit" value="Log in!">
+    </form>
+    <p>
+    <p>Don't have an account?
+    <p><a href="/signup">Sign up!</a>
+  </center>
+  </div>
+</div>

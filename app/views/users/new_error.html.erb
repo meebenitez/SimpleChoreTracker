@@ -3,6 +3,11 @@
 <head>
 <style>
 /* Create two equal columns that floats next to each other */
+
+h4 {
+  color: #FF0000;
+}
+
 .column {
     float: left;
     width: 50%;
@@ -36,13 +41,19 @@
 </div>
 <br>
 </center>
-<center>
+
 <div class="row">
   <div class="column">
-    <h3>Welcome!</h3>
-    <p>Ready to have a tidy house?
-    <p>Simple Chore Tracker will keep you on track.
-    <p>First time here?  <a href="/signup">Sign up!</a>
-    <p>Already Signed up?  <a href="/login">Login!</a>  </div>
+    <center><h3>New User? Signup!</h3>
+    <form action="/signup" method="POST">
+      <h4><%= @message %></h4>
+      <p>First Name: <br><input type="text" name="name" placeholder="Your First Name:">
+      <p>Email Address: <br><input type="text" name="email" placeholder="Email:">
+      <p>Password:
+      <br><input type="password" name="password" placeholder="Password:">
+      <p><input type="submit" value="Sign Up">
+      <p>
+      <p>Already have an account?  <a href="/login">Log in!</a>
+    </form></center>
+  </div>
 </div>
-</center>

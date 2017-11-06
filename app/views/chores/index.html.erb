@@ -15,83 +15,48 @@ a {
     color: #FF3B3F;
 }
 
-/* RESPONSIVE NAVBAR */
-
-.dropbtn {
-    background-color: #CAEBF2;
-    color: #FF3B3F;
-    padding: 16px;
-    font-size: 26px;
-    border: none;
-    cursor: pointer;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-  background-color: #aaa;
-  color: white;
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-.dropdown:hover .dropbtn {
-    background-color: #EFEFEF;
-}
 
 /* Create two equal columns that floats next to each other */
+.column_clear {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    border-radius: 25px;
+    margin-left: 25%;
+    margin-right: auto;
+    background-color: #EFEFEF;
+}
 .column1 {
     float: left;
-    width: 90%;
+    width: 70%;
     padding: 10px;
     border-top-left-radius: 25px;
     border-top-right-radius: 25px;
-    margin-left: 5%;
+    margin-left: 15%;
     margin-right: auto;
     background-color: #EFEFEF;
 }
 .column2 {
     float: left;
-    width: 90%;
+    width: 70%;
     padding: 10px;
-    margin-left: 5%;
+    margin-left: 15%;
     margin-right: auto;
     background-color: #EFEFEF;
 }
 .column3 {
     float: left;
-    width: 90%;
+    width: 70%;
     padding: 10px;
     border-bottom-left-radius: 25px;
     border-bottom-right-radius: 25px;
-    margin-left: 5%;
+    margin-left: 15%;
     margin-right: auto;
     background-color: #EFEFEF;
 }
 .minicolumn {
     float: left;
-    width: 30%;
+    width: 50%;
     padding: 10px;
     background-color: #EFEFEF;
 }
@@ -115,20 +80,13 @@ a {
 </style>
 </head>
 <body>
-
-
-  <div class="dropdown">
-    <button class="dropbtn">☰</button>
-    <div class="dropdown-content">
-      <a href="/users/account">Account</a>
-      <a href="/chores/edit">Edit Tracker</a>
-      <a href="/logout">Logout</a>
-    </div>
-  </div>
-
-<center><img src="images/sct_logo1.png" class="img-responsive main-image">
+<center><img src="images/sct_logo1.png" class="img-responsive main-image"></center>
+<center>
 <div class="row">
-Mark a chore completed by clicking the checkmark next to it.  Past due chores will always be prioritized to the top.  Now get to work!
+  <div class="column_clear">
+Mark a chore completed by clicking the checkmark next to it.
+<br>Past due chores will always be prioritized to the top.  Now get to work!
+</div>
 </div>
 <br>
 </center>
@@ -141,7 +99,7 @@ Mark a chore completed by clicking the checkmark next to it.  Past due chores wi
         <% chores.each do |chore| %>
         <form action="/chores/<%= chore.id %>/complete" method="post">
             <% if chore.past_due == true %>
-              <br><input type="submit" value="✔"> <%= chore.name %> PAST DUE
+              <br><input type="submit" value="✔"> <%= chore.name %> <span style="color:#FF0000">PAST DUE</span>
             <% else %>
               <br><input type="submit" value="✔"> <%= chore.name %>
             <% end %>
@@ -168,7 +126,7 @@ Mark a chore completed by clicking the checkmark next to it.  Past due chores wi
           <% chores.each do |chore| %>
           <form action="/chores/<%= chore.id %>/complete" method="post">
               <% if chore.past_due == true %>
-                <br><input type="submit" value="✔"> <%= chore.name %> PAST DUE
+                <br><input type="submit" value="✔"> <%= chore.name %> <span style="color:#FF0000">PAST DUE</span>
               <% else %>
                 <br><input type="submit" value="✔"> <%= chore.name %>
               <% end %>
@@ -190,7 +148,7 @@ Mark a chore completed by clicking the checkmark next to it.  Past due chores wi
           <% chores.each do |chore| %>
           <form action="/chores/<%= chore.id %>/complete" method="post">
               <% if chore.past_due == true %>
-                <br><input type="submit" value="✔"> <%= chore.name %> PAST DUE
+                <br><input type="submit" value="✔"> <%= chore.name %> <span style="color:#FF0000">PAST DUE</span>
               <% else %>
                 <br><input type="submit" value="✔"> <%= chore.name %>
               <% end %>
@@ -212,7 +170,7 @@ Mark a chore completed by clicking the checkmark next to it.  Past due chores wi
         <% chores.each do |chore| %>
         <form action="/chores/<%= chore.id %>/complete" method="post">
             <% if chore.past_due == true %>
-              <br><input type="submit" value="✔"> <%= chore.name %> PAST DUE
+              <br><input type="submit" value="✔"> <%= chore.name %> <span style="color:#FF0000">PAST DUE</span>
             <% else %>
               <br><input type="submit" value="✔"> <%= chore.name %>
             <% end %>

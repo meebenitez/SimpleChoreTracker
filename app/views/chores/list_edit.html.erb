@@ -2,29 +2,42 @@
 <html>
 <head>
 <style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-}
-
 /* Create two equal columns that floats next to each other */
+
+
 .column1 {
     float: left;
-    width: 100%;
+    width: 70%;
     padding: 10px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    margin-left: 15%;
+    margin-right: auto;
+    background-color: #EFEFEF;
 }
 .column2 {
     float: left;
-    width: 30%;
+    width: 70%;
     padding: 10px;
+    margin-left: 15%;
+    margin-right: auto;
+    background-color: #EFEFEF;
+}
+.column3 {
+    float: left;
+    width: 70%;
+    padding: 10px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    margin-left: 15%;
+    margin-right: auto;
+    background-color: #EFEFEF;
 }
 .minicolumn {
     float: left;
-    width: 30%;
+    width: 50%;
     padding: 10px;
+    background-color: #EFEFEF;
 }
 
 /* Clear floats after the columns */
@@ -34,126 +47,97 @@ body {
     clear: both;
 }
 
-
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-@media (max-width: 600px) {
+@media screen and (max-width: 600px) {
     .column {
         width: 100%;
     }
 }
+
+
 </style>
 </head>
 <body>
-
-<h2>Your Simple Chore Tracker</h2>
+  <center><img src="../images/sct_logo1.png" class="img-responsive main-image"></center>
+  <br>
+  <center><h2>Edit Your Chore List</h2></center>
+  <p>
 <div class="row">
-Welcome to your chore tracker.  Mark a chore completed by clicking "done".  Past due chores will always be prioritized to the top.  Now get to work!
-</div>
-
-<div class="row">
-  <div class="column1" style="background-color:#bbb;">
+  <div class="column1">
     <h2>Daily Chores</h2>
+      <p><b><small><a href="/chores/new">Add a new daily chore</a></small></b>
     <% if @daily_chores.count > 0 %>
       <% @daily_chores.each_slice(@daily_chores_count) do |chores| %>
       <div class="minicolumn" >
         <% chores.each do |chore| %>
-        <form action="/chores/<%= chore.id %>/edit" method="post">
-            <% if chore.past_due == true %>
-              <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %> PAST DUE
-            <% else %>
-              <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %>
-            <% end %>
+          <form action="/chores/<%= chore.id %>/edit" method="get">
+          <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %>
           </form>
         <% end %>
       </div>
       <% end %>
-    <% else %>
-      <p>Looks like you don't have any daily chores created.  You can add some <a href="/chores/new">here</a>.
     <% end %>
   </div>
 </div>
 <div class="row">
-  <div class="column1" style="background-color:#bbb;">
+  <div class="column2">
     <h2>Biweekly / Weekly Chores</h2>
+    <p><b><small><a href="/chores/new">Add a new biweekly/weekly chore</a></small></b>
+
   </div>
 </div>
-  <div class="row">
-    <div class="column1" style="background-color:#bbb;">
-      <h3>Biweekly</h3>
-      <% if @biweekly_chores.count > 0 %>
-        <% @biweekly_chores.each_slice(@biweekly_chores_count) do |chores| %>
-        <div class="minicolumn">
-          <% chores.each do |chore| %>
-          <form action="/chores/<%= chore.id %>/edit" method="post">
-              <% if chore.past_due == true %>
-                <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %> PAST DUE
-              <% else %>
-                <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %>
-              <% end %>
-            </form>
-          <% end %>
-        </div>
-        <% end %>
-      <% else %>
-        <p>Looks like you don't have any biweekly chores created.  You can add some <a href="/chores/new">here</a>.
-      <% end %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="column1" style="background-color:#bbb;">
-      <h3>Weekly</h3>
-      <% if @weekly_chores.count > 0 %>
-        <% @weekly_chores.each_slice(@weekly_chores_count) do |chores| %>
-        <div class="minicolumn">
-          <% chores.each do |chore| %>
-          <form action="/chores/<%= chore.id %>/edit" method="post">
-              <% if chore.past_due == true %>
-                <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %> PAST DUE
-              <% else %>
-                <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %>
-              <% end %>
-            </form>
-          <% end %>
-        </div>
-        <% end %>
-      <% else %>
-        <p>Looks like you don't have any weekly chores created.  You can add some <a href="/chores/new">here</a>.
-      <% end %>
-    </div>
-  </div>
 <div class="row">
-  <div class="column1" style="background-color:#bbb;">
+  <div class="column2">
+    <h3>Biweekly</h3>
+    <% if @biweekly_chores.count > 0 %>
+      <% @biweekly_chores.each_slice(@biweekly_chores_count) do |chores| %>
+        <div class="minicolumn">
+        <% chores.each do |chore| %>
+          <form action="/chores/<%= chore.id %>/edit" method="post">
+          <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %>
+          </form>
+        <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="column2">
+    <h3>Weekly</h3>
+    <% if @weekly_chores.count > 0 %>
+      <% @weekly_chores.each_slice(@weekly_chores_count) do |chores| %>
+        <div class="minicolumn">
+          <% chores.each do |chore| %>
+            <form action="/chores/<%= chore.id %>/edit" method="post">
+            <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %>
+            </form>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="column3">
     <h2>Monthly Chores</h2>
+    <p><b><small><a href="/chores/new">Add a new monthly chore</a></small></b>
     <% if @monthly_chores.count > 0 %>
       <% @monthly_chores.each_slice(@monthly_chores_count) do |chores| %>
-      <div class="minicolumn">
-        <% chores.each do |chore| %>
-        <form action="/chores/<%= chore.id %>/edit" method="post">
-            <% if chore.past_due == true %>
-              <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %> PAST DUE
-            <% else %>
-              <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %>
-            <% end %>
-          </form>
-        <% end %>
-      </div>
+        <div class="minicolumn" >
+          <% chores.each do |chore| %>
+            <form action="/chores/<%= chore.id %>/edit" method="post">
+            <br><input type="submit" value="EDIT"> <a href="/chores/<%= chore.id %>/delete">delete</a> <%= chore.name %>
+            </form>
+          <% end %>
+        </div>
       <% end %>
-    <% else %>
-      <p>Looks like you don't have any monthly chores created.  You can add some <a href="/chores/new">here</a>.
     <% end %>
   </div>
 </div>
+<center><div class="row">
+<h2><a href="/chores">View your chore tracker</a></h2>
+</div></center>
 
 </body>
 </html>
-
-
-
-
-<div class="row">
-<p>
-<p><a href="/chores/edit">Edit your chores list</a>
-<p><a href="/chores/new">Add a new chore</a>
-<p><a href="/chores/seed">Seed database</a>
-
-</div

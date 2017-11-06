@@ -1,3 +1,236 @@
-Awesome!  I'm so happy you signed up.
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* {
+    box-sizing: border-box;
+}
 
-To get you started I've created a list for you.  At any time you can modify this list by clicking on "Edit your Chore Tracker" at the bottom of the page.
+body {
+    margin: 0;
+    background-color: #CAEBF2;
+}
+
+a {
+    color: #FF3B3F;
+}
+
+/* RESPONSIVE NAVBAR */
+
+.dropbtn {
+    background-color: #CAEBF2;
+    color: #FF3B3F;
+    padding: 16px;
+    font-size: 26px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #aaa;
+  color: white;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #EFEFEF;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    border-radius: 25px;
+    margin-left: 25%;
+    margin-right: auto;
+    background-color: #ffffff;
+}
+.column1 {
+    float: left;
+    width: 70%;
+    padding: 10px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    margin-left: 15%;
+    margin-right: auto;
+    background-color: #EFEFEF;
+}
+.column2 {
+    float: left;
+    width: 70%;
+    padding: 10px;
+    margin-left: 15%;
+    margin-right: auto;
+    background-color: #EFEFEF;
+}
+.column3 {
+    float: left;
+    width: 70%;
+    padding: 10px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    margin-left: 15%;
+    margin-right: auto;
+    background-color: #EFEFEF;
+}
+.minicolumn {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    background-color: #EFEFEF;
+}
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+}
+
+
+</style>
+</head>
+<body>
+<center><img src="../images/sct_logo1.png" class="img-responsive main-image"></center>
+<br>
+<div class="row">
+  <div class="column">
+    <h2>Welcome <%= @user.name %>!</h2>
+      <p>
+      <p>To get you started, we've set you up with a list of Daily, Biweekly, Weekly, and Monthly chores in your tracker.  You can customize this list (add, edit, delete chores) by clicking on the "<a href="/chores/edit">Edit my Chore Tracker</a>" link at the bottom of the page.
+      <p>
+      <p>Have fun!
+  </div>
+</div>
+<p>
+<div class="row">
+  <div class="column1">
+    <h2>Daily Chores</h2>
+    <% if @daily_chores.count > 0 %>
+      <% @daily_chores.each_slice(@daily_chores_count) do |chores| %>
+      <div class="minicolumn" >
+        <% chores.each do |chore| %>
+        <form action="/chores/<%= chore.id %>/complete" method="post">
+            <% if chore.past_due == true %>
+              <br><input type="submit" value="✔"> <%= chore.name %> PAST DUE
+            <% else %>
+              <br><input type="submit" value="✔"> <%= chore.name %>
+            <% end %>
+          </form>
+        <% end %>
+      </div>
+      <% end %>
+    <% else %>
+      <p>Looks like you're all caught up.  Check back tomorrow!
+    <% end %>
+  </div>
+</div>
+<div class="row">
+  <div class="column2">
+    <h2>Biweekly / Weekly Chores</h2>
+  </div>
+</div>
+  <div class="row">
+    <div class="column2">
+      <h3>Biweekly</h3>
+      <% if @biweekly_chores.count > 0 %>
+        <% @biweekly_chores.each_slice(@biweekly_chores_count) do |chores| %>
+        <div class="minicolumn">
+          <% chores.each do |chore| %>
+          <form action="/chores/<%= chore.id %>/complete" method="post">
+              <% if chore.past_due == true %>
+                <br><input type="submit" value="✔"> <%= chore.name %> PAST DUE
+              <% else %>
+                <br><input type="submit" value="✔"> <%= chore.name %>
+              <% end %>
+            </form>
+          <% end %>
+        </div>
+        <% end %>
+      <% else %>
+        <p>Looks like you're all caught up.  Check back tomorrow!
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="column2">
+      <h3>Weekly</h3>
+      <% if @weekly_chores.count > 0 %>
+        <% @weekly_chores.each_slice(@weekly_chores_count) do |chores| %>
+        <div class="minicolumn">
+          <% chores.each do |chore| %>
+          <form action="/chores/<%= chore.id %>/complete" method="post">
+              <% if chore.past_due == true %>
+                <br><input type="submit" value="✔"> <%= chore.name %> PAST DUE
+              <% else %>
+                <br><input type="submit" value="✔"> <%= chore.name %>
+              <% end %>
+            </form>
+          <% end %>
+        </div>
+        <% end %>
+      <% else %>
+        <p>Looks like you're all caught up.  Check back tomorrow!
+      <% end %>
+    </div>
+  </div>
+<div class="row">
+  <div class="column3">
+    <h2>Monthly Chores</h2>
+    <% if @monthly_chores.count > 0 %>
+      <% @monthly_chores.each_slice(@monthly_chores_count) do |chores| %>
+      <div class="minicolumn">
+        <% chores.each do |chore| %>
+        <form action="/chores/<%= chore.id %>/complete" method="post">
+            <% if chore.past_due == true %>
+              <br><input type="submit" value="✔"> <%= chore.name %> PAST DUE
+            <% else %>
+              <br><input type="submit" value="✔"> <%= chore.name %>
+            <% end %>
+          </form>
+        <% end %>
+      </div>
+      <% end %>
+    <% else %>
+      <p>Looks like you're all caught up.  Check back tomorrow!
+    <% end %>
+  </div>
+</div>
+<center><div class="row">
+<h2><a href="/chores/edit">Edit your chore tracker</a></h2>
+</div></center>
+
+</body>
+</html>

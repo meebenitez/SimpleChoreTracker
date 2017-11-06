@@ -12,13 +12,101 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" href="/stylesheets/main.css" />
+  <style>
+  * {
+      box-sizing: border-box;
+  }
+
+  body {
+      margin: 0;
+      background-color: #CAEBF2;
+  }
+
+  a {
+      color: #FF3B3F;
+  }
+
+  /* RESPONSIVE NAVBAR */
+
+  .dropbtn {
+      background-color: #CAEBF2;
+      color: #FF3B3F;
+      padding: 16px;
+      font-size: 26px;
+      border: none;
+      cursor: pointer;
+  }
+
+  .dropdown {
+      position: relative;
+      display: inline-block;
+  }
+
+  .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+  }
+
+  .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+  }
+
+  .dropdown-content a:hover {
+    background-color: #aaa;
+    color: white;
+  }
+
+  .dropdown:hover .dropdown-content {
+      display: block;
+  }
+
+  .dropdown:hover .dropbtn {
+      background-color: #EFEFEF;
+  }
+
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: #aaa;
+    text-align: center;
+  }
+  </style>
+
 </head>
 <body>
+  <% if logged_in? %>
   <div class="wrapper">
+    <div class="dropdown">
+      <button class="dropbtn">☰</button>
+      <div class="dropdown-content">
+        <a href="/chores">Your Chores</a>
+        <a href="/chores/edit">Edit Tracker</a>
+        <a href="/logout">Logout</a>
+      </div>
+    </div>
+  <% else %>
+  <div class="wrapper">
+    <div class="dropdown">
+      <button class="dropbtn">☰</button>
+      <div class="dropdown-content">
+        <a href="/login">Login</a>
+      </div>
+    </div>
+  <% end %>
+
 
       <%= yield %>
 
-    <footer class="branding">
+    <footer class="footer">
       <small>&copy; 2017 <strong>SimpleChoreTracker.</strong> Logo icon made by <a href="https://www.flaticon.com/authors/eucalyp" title="Eucalyp">Eucalyp</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></small>
 
     </footer>

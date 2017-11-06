@@ -13,12 +13,19 @@ class UsersController < ApplicationController
 
    post '/signup' do
       if params[:name] == "" || params[:password] == "" || params[:email] == ""
-        redirect '/signup'
-       else
+        @message = "You left a field empty.  Please try again."
+        erb :"users/new_error.html"
+      elsif User.find_by(email: params[:email])
+        @message = "An account already exists with that email.  Please try again."
+        erb :"users/new_error.html"
+      elsif !User.find_by(email: params[:email]) && !valid_email?(params[:email])
+        @message = "You entered an invalid email address.  Please try again."
+        erb :"users/new_error.html"
+      else
          @user = User.new(name: params[:name], password: params[:password], email: params[:email])
          @user.save
          session[:user_id] = @user.id
-         redirect '/chores'
+         redirect '/chores/seed'
        end
    end
 
@@ -36,7 +43,8 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         redirect '/chores'
       else
-        redirect '/login'
+        @message = "You entered an incorrect email or password.  Please try again."
+        erb :'users/login.html'
       end
   end
 

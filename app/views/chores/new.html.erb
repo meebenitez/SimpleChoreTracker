@@ -1,11 +1,57 @@
-<h1>Create a New Chore!</h1>
-<p>Let's add some new chores.
-<form action="/chores" method="POST">
-  <p><input type="text" name="name" placeholder="Chore:">
-    <p>Select Frequency:
-        <label><input type="radio" name="frequency" value="daily">Daily</label>
-        <label><input type="radio" name="frequency" value="biweekly">Twice a week</label>
-        <label><input type="radio" name="frequency" value="weekly">Weekly</label>
-        <label><input type="radio" name="frequency" value="monthly">Monthly</label>
-   <p><input type="submit" name="submit" value="submit">
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+/* Create two equal columns that floats next to each other */
+.column {
+    float: left;
+    width: 50%;
+    padding: 10px;
+    border-radius: 25px;
+    margin-left: 25%;
+    margin-right: auto;
+    background-color: #EFEFEF;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+}
+
+
+</style>
+</head>
+<body>
+<center><div class="row">
+  <img src="/images/sct_logo1.png" class="img-responsive main-image">
+</div>
+<br>
+</center>
+
+<div class="row">
+  <div class="column">
+    <center>
+      <form action="/chores" method="POST">
+        <h2>Create a New Chore</h2>
+          <p>Chore: <input type="text" name="name" value="ex: 'make bed'" style="width: 300px;" maxlength="50"> <small>(50 char max)</small>
+          <p>Frequency: 
+            <label><input type="radio" name="frequency" value="daily"> Daily</label>
+            <label><input type="radio" name="frequency" value="biweekly"> Twice a week</label>
+            <label><input type="radio" name="frequency" value="weekly"> Weekly</label>
+            <label><input type="radio" name="frequency" value="monthly"> Monthly</label>
+            <p><input type="submit" value="Create Chore" name="submit">
+
+
+    </form>
+  </center>
+  </div>
+</div>
