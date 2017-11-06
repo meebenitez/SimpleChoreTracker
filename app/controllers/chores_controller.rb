@@ -124,7 +124,7 @@ class ChoresController < ApplicationController
     else
       redirect '/chores/new'
     end
-      redirect '/chores'
+      redirect '/chores/edit'
     end
 
   get "/chores/edit" do

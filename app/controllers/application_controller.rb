@@ -63,127 +63,139 @@ class ApplicationController < Sinatra::Base
        "Make bed" => {
          :frequency => "daily",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Do the dishes" => {
          :frequency => "daily",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Take out the trash" => {
          :frequency => "daily",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Wipe down stove and kitchen countertops" => {
          :frequency => "daily",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Wipe down dining table" => {
          :frequency => "daily",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Wipe down bathroom counters" => {
          :frequency => "daily",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "10 minute tidy living room" => {
          :frequency => "daily",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
+       },
+       "Sort mail" => {
+         :frequency => "daily",
+         :status => "not done",
+         :past_due => false
+       },
+       "Water plants" => {
+         :frequency => "daily",
+         :status => "not done",
+         :past_due => false
+       },
+       "Vacuum high-traffic areas" => {
+         :frequency => "daily",
+         :status => "not done",
+         :past_due => false
        },
        "10 minute tidy bedrooms" => {
          :frequency => "daily",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Tidy desk" => {
          :frequency => "biweekly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Complete a load of laundry" => {
          :frequency => "biweekly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Pay bills" => {
          :frequency => "biweekly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Vacuum or sweep all floors" => {
          :frequency => "weekly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Mop hard floors" => {
          :frequency => "weekly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Dust all surfaces" => {
          :frequency => "weekly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Thoroughly clean all bathrooms" => {
          :frequency => "weekly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Clean out expired fridge items" => {
          :frequency => "weekly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Wipe down kitchen cabinets and appliances" => {
          :frequency => "weekly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Wash all bedding" => {
          :frequency => "monthly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Clean the inside of the oven" => {
          :frequency => "monthly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Wipe down baseboards, moldings, doors" => {
          :frequency => "monthly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Wash ceiling light fixtures, wipe fan blades" => {
          :frequency => "monthly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Dust, vacuum or wash window coverings" => {
          :frequency => "monthly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        },
        "Wipe light switches and door handles" => {
          :frequency => "monthly",
          :status => "not done",
-         :past_due => "false"
+         :past_due => false
        }
      }
      now = Time.now()
      @user = current_user
-     #subtract_time = (now.strftime('%H').to_i * 3600) + (now.strftime('%M').to_i * 60) + (now.strftime('%S').to_i)
-     #reset_time = now - subtract_time
      chores_list.each do |name, chore_hash|
        p = Chore.new
        p.name = name
-       p.past_due = false
        chore_hash.each do |attribute, value|
          p[attribute] = value
        end
