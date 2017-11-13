@@ -59,7 +59,6 @@ class UsersController < ApplicationController
   end
 
 
-
   # GET: /users/new
   get "/users/new" do
     erb :"/users/new.html"
