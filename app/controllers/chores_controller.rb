@@ -57,9 +57,13 @@ class ChoresController < ApplicationController
   end
 
   get "/chores/seed" do
-    if logged_in?
+    @user = current_user
+    if logged_in? && @user.new_user == true
       starter_chores
+      @user.new_user = false
       redirect '/chores/new_user'
+    elsif logged_in? && @user.new_user == false
+      redirect '/chores'
     else
       redirect '/login'
     end
@@ -221,4 +225,6 @@ class ChoresController < ApplicationController
       redirect '/login'
     end
   end
+
+
 end

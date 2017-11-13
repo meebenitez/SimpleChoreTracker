@@ -23,6 +23,7 @@ class UsersController < ApplicationController
         erb :"users/new_error.html"
       else
          @user = User.new(name: params[:name], password: params[:password], email: params[:email])
+         @user.new_user = true
          @user.save
          session[:user_id] = @user.id
          redirect '/chores/seed'
