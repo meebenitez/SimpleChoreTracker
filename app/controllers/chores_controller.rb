@@ -10,9 +10,9 @@ class ChoresController < ApplicationController
       @weekly_chores = []
       @biweekly_chores = []
       @monthly_chores = []
-      #add logic for daily, weekly, monthly
       @chores = @user.chores
       now = Time.now()
+      #Break list into daily, biweekly, weekly, monthly, then formatting into columns
       @chores.each do |chore|
         if chore.frequency == "daily" && chore.status == "not done"
           if now > chore.reset_time
@@ -58,9 +58,11 @@ class ChoresController < ApplicationController
 
   get "/chores/seed" do
     @user = current_user
+    #Preventing multiple seeds by changing new_user to false after first seed
     if logged_in? && @user.new_user == true
       starter_chores
       @user.new_user = false
+      @user.save
       redirect '/chores/new_user'
     elsif logged_in? && @user.new_user == false
       redirect '/chores'
@@ -78,9 +80,9 @@ class ChoresController < ApplicationController
       @weekly_chores = []
       @biweekly_chores = []
       @monthly_chores = []
-      #add logic for daily, weekly, monthly
       @chores = @user.chores
       now = Time.now()
+      #Break list into daily, biweekly, weekly, monthly, then formatting into columns
       @chores.each do |chore|
         if chore.frequency == "daily" && chore.status == "not done"
           if now > chore.reset_time
@@ -201,6 +203,7 @@ class ChoresController < ApplicationController
   end
 
   post "/chores/:id/complete" do
+    #When a chore is completed it's given a status of done and a reset time
     now = Time.now()
     @chore = Chore.find_by_id(params[:id])
    if logged_in? && @chore.user_id == current_user.id
